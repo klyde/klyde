@@ -460,7 +460,7 @@ if ( ! function_exists( 'ishyoboy_load_my_scripts' ) ) {
     }
 }
 add_action('wp_enqueue_scripts', 'ishyoboy_load_my_scripts');
-add_action( 'wp_enqueue_scripts', 'ishyoboy_set_javascritp_globals');
+add_action('wp_enqueue_scripts', 'ishyoboy_set_javascritp_globals');
 
 
 /* *********************************************************************************************************************
@@ -468,7 +468,6 @@ add_action( 'wp_enqueue_scripts', 'ishyoboy_set_javascritp_globals');
  */
 add_theme_support( 'nav-menus' );
 add_action( 'init', 'ishyoboy_register_menus' );
-
 if ( ! function_exists( 'ishyoboy_register_menus' ) ) {
     function ishyoboy_register_menus() {
         register_nav_menus(
@@ -516,13 +515,14 @@ if ( function_exists( 'add_theme_support' ) )
 	    'page',
         'review-post',
         'podcast-post',
-        'video-post'
+        'video-post',
+        'tutorial-post'
     ));
 
 
     if (is_admin() && isset($_GET['activated'] ) && $pagenow == "themes.php" ) {
-        update_option('thumbnail_size_w',70);
-        update_option('thumbnail_size_h',70);
+        update_option('thumbnail_size_w',120);
+        update_option('thumbnail_size_h',120);
         update_option('thumbnail_crop', 1);
     }
 
@@ -559,9 +559,9 @@ function ishyoboy_do_meta_boxes() {
     remove_meta_box( 'postimagediv', 'post', 'side' );
     add_meta_box( 'postimagediv', __( 'Post image', 'ishyoboy' ), 'post_thumbnail_meta_box', 'post', 'normal', 'high' );
 
-    // Microblog
-    remove_meta_box( 'postimagediv', 'microblog-post', 'side' );
-    add_meta_box( 'postimagediv', __( 'Microblog post image', 'ishyoboy' ), 'post_thumbnail_meta_box', 'microblog-post', 'normal', 'high' );
+    // Tutorial
+    remove_meta_box( 'postimagediv', 'tutorial-post', 'side' );
+    add_meta_box( 'postimagediv', __( 'Tutorial post image', 'ishyoboy' ), 'post_thumbnail_meta_box', 'tutorial-post', 'normal', 'high' );
 
 }
 add_action('do_meta_boxes', 'ishyoboy_do_meta_boxes');
@@ -613,6 +613,7 @@ if ( ! function_exists( 'ishyoboy_comments' ) ) {
             <?php if ($comment->comment_approved == '0') : ?>
             <em><?php _e('Your comment is awaiting moderation.', 'ishyoboy') ?></em>
             <br />
+        
             <?php endif; ?>
 
             <p><?php comment_text() ?></p>
@@ -620,8 +621,7 @@ if ( ! function_exists( 'ishyoboy_comments' ) ) {
     </li>
 
     <?php
-}
-}
+}}
 if ( ! function_exists( 'ishyoboy_filter_comment' ) ) {
     function ishyoboy_filter_comment( $comment ){
     //return strip_tags( $comment , html_entity_decode(allowed_tags()) );
@@ -731,7 +731,6 @@ if ( ! function_exists( 'ishyoboy_comment_form' ) ) {
 <?php
 }
 }
-
 /*
  *  Change the default setting for comments on Pages & Portfolio posts. Make them closed by default.
  */
@@ -741,8 +740,6 @@ if ( ! function_exists( 'ishyoboy_default_content' ) ) {
             switch( $post->post_type ) {
                 case 'page':
                 case 'portfolio-post':
-                case 'video-post':
-                case 'podcast-post':
                     $post->comment_status = 'closed';
                     break;
             }
@@ -750,6 +747,7 @@ if ( ! function_exists( 'ishyoboy_default_content' ) ) {
     }
 }
 add_filter( 'default_content', 'ishyoboy_default_content', 10, 2 );
+
 
 /*
  *  Portfolio & Microblog detail - Slideshow/Image print
@@ -1138,6 +1136,87 @@ if ( ! function_exists( 'ishyoboy_get_podcast_post_fancybox_images' ) ) {
 }
 
 
+/*
+ *  tutorial overview attachment images print
+ */
+
+if ( !function_exists( 'ishyoboy_tutorial_post_fancybox_images' ) ) {
+    function ishyoboy_tutorial_post_fancybox_images($postid, $imagesize) {
+        $thumbid = 0;
+
+        // get the featured image for the post
+        if( has_post_thumbnail($postid) ) {
+            $thumbid = get_post_thumbnail_id($postid);
+        }
+
+
+        // get all of the attachments for the post
+        $args = array(
+            'orderby' => 'menu_order',
+            'order' => 'ASC',
+            'post_type' => 'attachment',
+            'post_parent' => $postid,
+            'post_mime_type' => 'image',
+            'post_status' => null,
+            'numberposts' => -1
+        );
+
+        $attachments = get_posts($args);
+
+        if( !empty($attachments) ) {
+            foreach( $attachments as $attachment ) {
+
+                // SKIP OUT THE FAETURED IMAGE
+                if( $attachment->ID == $thumbid ) continue;
+
+                $details = wp_get_attachment_image_src( $attachment->ID, $imagesize );
+                echo "<a href='" . esc_attr($details[0]) . "' rel='tutorial-box-" . $postid . "' class='openfancybox-image'></a>\n";
+            }
+        }
+
+    }
+}
+
+if ( ! function_exists( 'ishyoboy_get_tutorial_post_fancybox_images' ) ) {
+    function ishyoboy_get_tutorial_post_fancybox_images($postid, $imagesize) {
+        $thumbid = 0;
+
+        $return = '';
+
+        // get the featured image for the post
+        if( has_post_thumbnail($postid) ) {
+            $thumbid = get_post_thumbnail_id($postid);
+        }
+
+
+        // get all of the attachments for the post
+        $args = array(
+            'orderby' => 'menu_order',
+            'order' => 'ASC',
+            'post_type' => 'attachment',
+            'post_parent' => $postid,
+            'post_mime_type' => 'image',
+            'post_status' => null,
+            'numberposts' => -1
+        );
+
+        $attachments = get_posts($args);
+
+        if( !empty($attachments) ) {
+            foreach( $attachments as $attachment ) {
+
+                // SKIP OUT THE FAETURED IMAGE
+                if( $attachment->ID == $thumbid ) continue;
+
+                $details = wp_get_attachment_image_src( $attachment->ID, $imagesize );
+                $return .= "<a href='" . esc_attr($details[0]) . "' rel='tutorial-box-" . $postid . "' class='openfancybox-image'></a>\n";
+            }
+        }
+
+        return $return;
+
+    }
+}
 
 /*
  *  Video overview attachment images print
@@ -1739,7 +1818,7 @@ function change_posttype() {
     if( is_archive() && is_paged() && !is_admin() && ( !function_exists('is_woocommerce') || !is_woocommerce() ) ) {
         //var_dump($wp_query);
         // WOOCOMMERCE UNCOMMENTED
-        set_query_var( 'post_type', array( 'post', 'portfolio-post', 'video-post', 'review-post', 'podcast-post' ) );
+        set_query_var( 'post_type', array( 'post', 'portfolio-post', 'video-post', 'review-post', 'podcast-post', 'tutorial-post' ) );
     }
     return;
 }
@@ -1785,10 +1864,20 @@ function ishyoboy_option_posts_per_page( $value ) {
         }
 
     }
-    if ( is_tax( 'review-category') ) {
+    elseif ( is_tax( 'review-category') ) {
 
         if ( isset($ish_options['review_posts_per_page']) && !empty($ish_options['review_posts_per_page']) ){
             return $ish_options['review_posts_per_page'];
+        }
+        else{
+            return $option_posts_per_page;
+        }
+
+    }
+    elseif ( is_tax( 'tutorial-category') ) {
+
+        if ( isset($ish_options['tutorial_posts_per_page']) && !empty($ish_options['tutorial_posts_per_page']) ){
+            return $ish_options['tutorial_posts_per_page'];
         }
         else{
             return $option_posts_per_page;
@@ -1832,7 +1921,7 @@ if ( ! function_exists( 'shortcode_empty_paragraph_fix' ) ) {
     $array = array (
         '<p>[' => '[',
         ']</p>' => ']',
-        ']<br />' => ']'
+        '<br />' => ''
     );
 
     $content = strtr($content, $array);
@@ -1851,6 +1940,22 @@ function filter_post_type_link($link, $post)
 
     if ($cats = get_the_terms($post->ID, 'portfolio-category'))
         $link = str_replace('%portfolio_cat%', array_pop($cats)->slug, $link);
+    return $link;
+}
+add_filter('post_type_link', 'filter_post_type_link', 10, 2);
+/**/
+
+/* *********************************************************************************************************************
+ * Make WordPress recognize %tutorial_cat%
+ */
+/*
+function filter_post_type_link($link, $post)
+{
+    if ($post->post_type != 'tutorial-post')
+        return $link;
+
+    if ($cats = get_the_terms($post->ID, 'tutorial-category'))
+        $link = str_replace('%tutorial_cat%', array_pop($cats)->slug, $link);
     return $link;
 }
 add_filter('post_type_link', 'filter_post_type_link', 10, 2);
@@ -2297,28 +2402,39 @@ if ( ! function_exists( 'ishyoboy_add_wp38_body_class' ) ) {
 add_filter( 'admin_body_class', 'ishyoboy_add_wp38_body_class');
 
 
-
-
-
-
-
-// Show posts of 'post', 'review', 'podcast' and 'video' post types on archive pages
-add_action( 'pre_get_posts', 'add_my_post_types_to_query' );
-
-function add_my_post_types_to_query( $query ) {
-  if ( is_home() && $query->is_main_query() )
-    $query->set( 'post_type', array( 'post', 'review-post', 'video-post', 'podcast-post', 'portfolio-post' ) );
-  return $query;
+function change_post_menu_label() {
+    global $menu;
+    global $submenu;
+    $menu[5][0] = 'Articles';
+    $submenu['edit.php'][5][0] = 'Articles';
+    $submenu['edit.php'][10][0] = 'Add Articles';
+    $submenu['edit.php'][15][0] = 'Article Categories'; // Change name for categories
+    $submenu['edit.php'][16][0] = 'Article Tags'; // Change name for tags
+    echo '';
 }
-
-
-function get_the_excerpt_here($post_id)
-{
-  global $wpdb;
-  $query = "SELECT post_excerpt FROM $wpdb->posts WHERE ID = $post_id LIMIT 1";
-  $result = $wpdb->get_results($query, ARRAY_A);
-  return $result[0]['post_excerpt'];
+function change_post_object_label() {
+        global $wp_post_types;
+        $labels = &$wp_post_types['post']->labels;
+        $labels->name = 'Articles';
+        $labels->singular_name = 'Article';
+        $labels->add_new = 'Add Article';
+        $labels->add_new_item = 'Add New Article';
+        $labels->edit_item = 'Edit Article';
+        $labels->new_item = 'Article';
+        $labels->view_item = 'View Article';
+        $labels->search_items = 'Search Articles';
+        $labels->not_found = 'No Articles Found';
+        $labels->not_found_in_trash = 'No Articles Found In Trash';
 }
+add_action( 'init', 'change_post_object_label' );
+add_action( 'admin_menu', 'change_post_menu_label' );
+
+function custom_conference_in_home_loop( $query ) {
+ if ( is_home() && $query->is_main_query() )
+ $query->set( 'post_type', array( 'post', 'portfolio-post', 'video-post', 'review-post', 'tutorial-post', 'podcast-post') );
+ return $query;
+ }
+ add_filter( 'pre_get_posts', 'custom_conference_in_home_loop' );
 
 /* *********************************************************************************************************************
  * Load Language
@@ -2339,6 +2455,7 @@ require_once( locate_template( 'assets/framework/wp/posts/post-types/portfolio-p
 require_once( locate_template( 'assets/framework/wp/posts/post-types/review-post-type.php' ) );
 require_once( locate_template( 'assets/framework/wp/posts/post-types/video-post-type.php' ) );
 require_once( locate_template( 'assets/framework/wp/posts/post-types/podcast-post-type.php' ) );
+require_once( locate_template( 'assets/framework/wp/posts/post-types/tutorial-post-type.php' ) );
 require_once( locate_template( 'assets/framework/wp/posts/post-types/slider-post-type.php' ) );
 require_once( locate_template( 'assets/framework/wp/includes/class-tgm-plugin-activation.php' ) );
 

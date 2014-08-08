@@ -22,10 +22,10 @@
         'all_items'             => __( 'All Videos', 'ishyoboy' )
       );
       $taxonomies              = array();
-      $supports                = array('title', 'editor', 'thumbnail', 'author', 'excerpt', 'revisions', 'trackbacks');
+      $supports                = array('title', 'editor', 'thumbnail', 'author', 'excerpt', 'revisions', 'trackbacks' 'comments', 'page-attributes');
       $post_type_args          = array(
         'labels'                => $labels,
-        'description'           => __( 'Plugin and Theme videos wtih in-depth analysis and thoughtful prose', 'ishyoboy'),
+        'description'           => __( 'Plugin and Theme Videos wtih in-depth analysis and thoughtful prose', 'ishyoboy'),
         'singular_label'        => __( 'Video' , 'ishyoboy' ),
         'public'                => true,
         'publicly_queryable'    => true,
@@ -40,12 +40,12 @@
         'can_export'            => true,
         'delete_with_user'      => false,
         'has_archive'           => 'videos',
-        'hierarchical'          => false,
+        'hierarchical'          => true,
         'rewrite'               => array(
           'slug'                  => 'video',
           'with_front'            => true,
           'feed'                  => true,
-          'pages'                 => false
+          'pages'                 => true
         ),
         'supports'              => $supports,
         'capabilities'          => array(
@@ -121,31 +121,31 @@
     {
 
       $labels = array(
-        'name'                          => __( 'Video Categories', 'ishyoboy' ),
-        'singular_name'           => __( 'Video Category', 'ishyoboy' ),
-        'search_items'            => __( 'Search Video Categories', 'ishyoboy' ),
-        'popular_items'           => __( 'Popular Video Categories', 'ishyoboy' ),
-        'all_items'             => __( 'All Video Categories', 'ishyoboy' ),
-        'parent_item'           => __( 'Parent Video Category', 'ishyoboy' ),
-        'edit_item'             => __( 'Edit Video Category', 'ishyoboy' ),
-        'update_item'           => __( 'Update Video Category', 'ishyoboy' ),
-        'add_new_item'            => __( 'Add New Video Category', 'ishyoboy' ),
-        'new_item_name'           => __( 'New Video Category', 'ishyoboy' ),
+        'name'                        => __( 'Video Categories', 'ishyoboy' ),
+        'singular_name'               => __( 'Video Category', 'ishyoboy' ),
+        'search_items'                => __( 'Search Video Categories', 'ishyoboy' ),
+        'popular_items'               => __( 'Popular Video Categories', 'ishyoboy' ),
+        'all_items'                   => __( 'All Video Categories', 'ishyoboy' ),
+        'parent_item'                 => __( 'Parent Video Category', 'ishyoboy' ),
+        'edit_item'                   => __( 'Edit Video Category', 'ishyoboy' ),
+        'update_item'                 => __( 'Update Video Category', 'ishyoboy' ),
+        'add_new_item'                => __( 'Add New Video Category', 'ishyoboy' ),
+        'new_item_name'               => __( 'New Video Category', 'ishyoboy' ),
         'separate_items_with_commas'  => __( 'Separate Video Categories With Commas', 'ishyoboy' ),
-        'add_or_remove_items'       => __( 'Add Or Remove Video Category', 'ishyoboy' ),
+        'add_or_remove_items'         => __( 'Add Or Remove Video Category', 'ishyoboy' ),
         'choose_from_most_used'       => __( 'Choose From Most Used Video Categories', 'ishyoboy' )
       );
 
       $args = array(
         //'labels'            => $labels,
-        'public'            => true,
-        'hierarchical'            => true,
-        'show_ui'             => true,
+        'public'                    => true,
+        'hierarchical'              => true,
+        'show_ui'                   => true,
         'show_in_nav_menus'         => true,
-        'query_var'             => true,
-        "rewrite"             => array(
-          'slug'        => 'video-category',
-          'hierarchical'  => true
+        'query_var'                 => true,
+        "rewrite"                   => array(
+          'slug'                      => 'video-category',
+          'hierarchical'              => true
         )
       );
 

@@ -22,7 +22,7 @@
 				'all_items'             => __( 'All Portfolios', 'ishyoboy' )
 		      );
 		      $taxonomies              = array();
-		      $supports                = array('title', 'editor', 'thumbnail', 'author', 'excerpt', 'revisions', 'trackbacks');
+		      $supports                = array('title', 'editor', 'thumbnail', 'author', 'excerpt', 'revisions', 'trackbacks' 'comments', 'page-attributes');
 		      $post_type_args          = array(
 		        'labels'                => $labels,
 		        'description'           => __( 'Displays past projects in an easily consumable fashion forward way', 'ishyoboy'),
@@ -40,12 +40,12 @@
 		        'can_export'            => true,
 		        'delete_with_user'      => false,
 		        'has_archive'           => 'portfolios',
-		        'hierarchical'          => false,
+		        'hierarchical'          => true,
 		        'rewrite'               => array(
 		          'slug'                  => 'portfolio',
 		          'with_front'            => true,
 		          'feed'                  => true,
-		          'pages'                 => false
+		          'pages'                 => true
 		        ),
 		        'supports'              => $supports,
 		        'capabilities'          => array(
@@ -144,8 +144,8 @@
 				'show_in_nav_menus'			    => true,
 				'query_var'					    => true,
 				"rewrite"					    => array(
-					'slug'		    => 'portfolio-category',
-					'hierarchical'  => true
+					'slug'		                  => 'portfolio-category',
+					'hierarchical'                => true
 				)
 			);
 

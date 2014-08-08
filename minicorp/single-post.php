@@ -10,11 +10,13 @@ global $ish_options;
 
 // Get Sidebar width options, do not remove!
 global $sidebar_width;
-
-
-?>
-
-
+?><section id="part-lead" class="part-lead lead-boxed" style="background-color:#ac984d;border-top: 5px solid #554335;margin-top: 1px;padding-top: 25px;">
+    <div class="row">
+        <section class="grid12">
+            <h1 class=" color4 acenter"><?php the_title() ?></h1>
+        </section>
+    </div>
+</section>
 <div class="part-fullsection bg-color2 bg-pattern">
     <div class="row">
         <div class="grid12">
@@ -62,15 +64,10 @@ global $sidebar_width;
 
         <div class="<?php echo ishyoboy_get_content_class(); ?>">
             <?php
-            // Breadcrumbs display
-            ishyoboy_show_breadcrumbs();
-
             if (have_posts()) {
-
                 while (have_posts()) {
-
                     the_post();
-
+                    
                     $format = get_post_format();
                     if( false === $format ) { $format = 'standard'; }
                     get_template_part( 'content-post', $format );
@@ -80,36 +77,17 @@ global $sidebar_width;
                 ishyoboy_pagination('', 3);
 
             } else {  ?>
-
                 <div id="post-0" <?php post_class(); ?>>
-
                     <h2 class="entry-title"><?php _e('Error 404 - Page Not Found', 'ishyoboy') ?></h2>
-
                     <div class="entry-content">
                         <p><?php _e("Sorry, the content you are looking for could not be found.", 'ishyoboy') ?></p>
                     </div>
-
                 </div>
-
                 <?php } ?>
-
         </div>
-
-
-        <?php
-        // SIDEBAR
-        get_sidebar();
-        ?>
-
     </div>
 </section>
 <!-- Content part section END -->
-
 <?php
-
-/*
- * Get footer.php
- */
 get_footer();
-
 ?>

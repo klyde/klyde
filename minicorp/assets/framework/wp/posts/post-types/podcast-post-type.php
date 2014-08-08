@@ -22,7 +22,7 @@
          'all_items'            => __( 'All Podcasts', 'ishyoboy' )
               );
               $taxonomies              = array();
-              $supports                = array('title', 'editor', 'thumbnail', 'author', 'excerpt', 'revisions', 'trackbacks');
+              $supports                = array('title', 'editor', 'thumbnail', 'author', 'excerpt', 'revisions', 'trackbacks' 'comments', 'page-attributes');
               $post_type_args          = array(
                 'labels'                => $labels,
                 'description'           => __( 'Listen and or watch Klyde`s plugin and theme reviews by subscribing to the podcast feed', 'ishyoboy'),
@@ -45,7 +45,7 @@
                   'slug'                  => 'podcast',
                   'with_front'            => true,
                   'feed'                  => true,
-                  'pages'                 => false
+                  'pages'                 => true
                 ),
                 'supports'              => $supports,
                 'capabilities'          => array(
@@ -124,30 +124,30 @@
 
       $labels = array(
         'name'                          => __( 'Podcast Categories', 'ishyoboy' ),
-        'singular_name'           => __( 'Podcast Category', 'ishyoboy' ),
-        'search_items'            => __( 'Search Podcast Categories', 'ishyoboy' ),
-        'popular_items'           => __( 'Popular Podcast Categories', 'ishyoboy' ),
-        'all_items'             => __( 'All Podcast Categories', 'ishyoboy' ),
-        'parent_item'           => __( 'Parent Podcast Category', 'ishyoboy' ),
-        'edit_item'             => __( 'Edit Podcast Category', 'ishyoboy' ),
-        'update_item'           => __( 'Update Podcast Category', 'ishyoboy' ),
-        'add_new_item'            => __( 'Add New Podcast Category', 'ishyoboy' ),
-        'new_item_name'           => __( 'New Podcast Category', 'ishyoboy' ),
-        'separate_items_with_commas'  => __( 'Separate Podcast Categories with commas', 'ishyoboy' ),
-        'add_or_remove_items'       => __( 'Add or Remove Podcast Category', 'ishyoboy' ),
-        'choose_from_most_used'       => __( 'Choose from most used Podcast Categories', 'ishyoboy' )
+        'singular_name'                 => __( 'Podcast Category', 'ishyoboy' ),
+        'search_items'                  => __( 'Search Podcast Categories', 'ishyoboy' ),
+        'popular_items'                 => __( 'Popular Podcast Categories', 'ishyoboy' ),
+        'all_items'                     => __( 'All Podcast Categories', 'ishyoboy' ),
+        'parent_item'                   => __( 'Parent Podcast Category', 'ishyoboy' ),
+        'edit_item'                     => __( 'Edit Podcast Category', 'ishyoboy' ),
+        'update_item'                   => __( 'Update Podcast Category', 'ishyoboy' ),
+        'add_new_item'                  => __( 'Add New Podcast Category', 'ishyoboy' ),
+        'new_item_name'                 => __( 'New Podcast Category', 'ishyoboy' ),
+        'separate_items_with_commas'    => __( 'Separate Podcast Categories with commas', 'ishyoboy' ),
+        'add_or_remove_items'           => __( 'Add or Remove Podcast Category', 'ishyoboy' ),
+        'choose_from_most_used'         => __( 'Choose from most used Podcast Categories', 'ishyoboy' )
       );
 
       $args = array(
         //'labels'            => $labels,
-        'public'            => true,
-        'hierarchical'            => true,
-        'show_ui'             => true,
-        'show_in_nav_menus'         => true,
-        'query_var'             => true,
-        "rewrite"             => array(
-          'slug'        => 'podcast-category',
-          'hierarchical'  => true
+        'public'                   => true,
+        'hierarchical'             => true,
+        'show_ui'                  => true,
+        'show_in_nav_menus'        => true,
+        'query_var'                => true,
+        "rewrite"                  => array(
+          'slug'                     => 'podcast-category',
+          'hierarchical'             => true
         )
       );
 

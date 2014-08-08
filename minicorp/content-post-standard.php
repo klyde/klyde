@@ -108,8 +108,11 @@
 
         <div class="blog-post-details" style="text-align:center; font-weight:bold;">
             <span class="icon-calendar"><?php _e( 'Posted On:' , 'ishyoboy' ); ?> <?php the_time( get_option( 'date_format' ) ); ?></span>
-            <span class="icon-pencil-1">Written By: <?php echo get_the_author_link(); ?></span>
-            
+            <span class="icon-pencil-1">Written By: <?php if ( function_exists( 'coauthors_posts_links' ) ) {
+                                             coauthors_posts_links();
+                                        } else {
+                                             the_author_posts_link();
+                                        } ?></span>
             <?php if ( has_category() ) : ?>
                 <span class="icon-folder">Filed Under: <?php the_category(', '); ?></span>
             <?php endif; ?>

@@ -4,14 +4,14 @@
  * Add custom meta boxes
  */
 
-$pages_arr = array('page', 'post', 'portfolio-post', 'review-post', 'video-post', 'podcast-post');
+$pages_arr = array('page', 'post', 'portfolio-post', 'review-post', 'video-post', 'podcast-post', 'tutorial-post');
 if ( ishyoboy_woocommerce_plugin_active() ){
     $pages_arr[] = 'product';
 }
 
 add_ishyo_meta_box('ishyoboy_lead_area', array(
     'title'     => 'Lead Section',
-    'pages'		=> $pages_arr,
+    'pages'     => $pages_arr,
     'context'   => 'normal',
     'priority'  => 'high',
     'fields'    => array(
@@ -45,7 +45,7 @@ add_ishyo_meta_box('ishyoboy_lead_area', array(
 
 add_ishyo_meta_box('ishyoboy_meta_post_link', array(
     'title'     => __('Link settings', 'ishyoboy'),
-    'pages'		=> array('post'),
+    'pages'     => array('post'),
     'context'   => 'normal',
     'priority'  => 'high',
     'fields'    => array(
@@ -60,7 +60,7 @@ add_ishyo_meta_box('ishyoboy_meta_post_link', array(
 
 add_ishyo_meta_box('ishyoboy_meta_post_quote', array(
     'title'     => __('Quote settings', 'ishyoboy'),
-    'pages'		=> array('post'),
+    'pages'     => array('post'),
     'context'   => 'normal',
     'priority'  => 'high',
     'fields'    => array(
@@ -87,12 +87,12 @@ add_ishyo_meta_box('ishyoboy_meta_post_quote', array(
 
 add_ishyo_meta_box('ishyoboy_meta_post_audio', array(
     'title'     => __('Audio settings', 'ishyoboy'),
-    'pages'		=> array('post', 'portfolio-post', 'review-post', 'video-post', 'podcast-post'),
+    'pages'     => array('post', 'portfolio-post', 'review-post', 'video-post', 'podcast-post', 'tutorial-post'),
     'context'   => 'normal',
     'priority'  => 'high',
     'fields'    => array(
         array(
-            'name' => __('Adio file URL', 'ishyoboy'),
+            'name' => __('Audio file URL', 'ishyoboy'),
             'id' => 'ishyoboy_post_audio',
             'default' => '',
             'desc' => __('Please enter the URL of the audio file.', 'ishyoboy'),
@@ -103,7 +103,7 @@ add_ishyo_meta_box('ishyoboy_meta_post_audio', array(
 
 add_ishyo_meta_box('ishyoboy_meta_post_video', array(
     'title'     => __('Video settings', 'ishyoboy'),
-    'pages'		=> array('post', 'portfolio-post', 'review-post', 'video-post', 'podcast-post'),
+    'pages'     => array('post', 'portfolio-post', 'review-post', 'video-post', 'podcast-post', 'tutorial-post'),
     'context'   => 'normal',
     'priority'  => 'high',
     'fields'    => array(
@@ -145,14 +145,14 @@ add_ishyo_meta_box('ishyoboy_meta_post_video', array(
     )
 ));
 
-$pages_arr = array('page', 'post', 'portfolio-post', 'review-post', 'video-post', 'podcast-post');
+$pages_arr = array('page', 'post', 'portfolio-post', 'review-post', 'video-post', 'podcast-post', 'tutorial-post');
 if ( ishyoboy_woocommerce_plugin_active() ){
     $pages_arr[] = 'product';
 }
 
 add_ishyo_meta_box('ishyoboy_page_settings', array(
     'title'     => 'Page Settings',
-    'pages'		=> $pages_arr,
+    'pages'     => $pages_arr,
     'context'   => 'side',
     'priority'  => 'default',
     'fields'    => array(
@@ -163,9 +163,9 @@ add_ishyo_meta_box('ishyoboy_page_settings', array(
             'desc' => __('To show/hide the breadcrumbs on all pages go to ', 'ishyoboy' ) . '<a href="' . admin_url('themes.php?page=optionsframework') . '" target="_blank">Theme Options</a>',
             'type' => 'select',
             'options' => array(
-                ''		=> 'Default setting',
-                '0'		=> 'Hide',
-                '1'		=> 'Show'
+                ''      => 'Default setting',
+                '0'     => 'Hide',
+                '1'     => 'Show'
             )
         ),
         array(
@@ -175,15 +175,15 @@ add_ishyo_meta_box('ishyoboy_page_settings', array(
             'desc' => __('To change the layout of the whole website go to ', 'ishyoboy' ) . '<a href="' . admin_url('themes.php?page=optionsframework') . '" target="_blank">Theme Options</a>',
             'type' => 'select',
             'options' => array(
-                ''		    => 'Default setting',
-                'boxed'		=> 'Boxed',
-                'unboxed'	=> 'Unboxed'
+                ''          => 'Default setting',
+                'boxed'     => 'Boxed',
+                'unboxed'   => 'Unboxed'
             )
         )
     )
 ));
 
-$pages_arr = array('page', 'post', 'portfolio-post', 'review-post', 'video-post', 'podcast-post');
+$pages_arr = array('page', 'post', 'portfolio-post', 'review-post', 'video-post', 'podcast-post', 'tutorial-post');
 if ( ishyoboy_woocommerce_plugin_active() ){
     $pages_arr[] = 'product';
 }
@@ -191,7 +191,7 @@ if ( ishyoboy_woocommerce_plugin_active() ){
 if ( !ishyoboy_seo_plugin_active() ){
     add_ishyo_meta_box('ishyoboy_seo_fields', array(
         'title'     => __('SEO Options', 'ishyoboy'),
-        'pages'		=> $pages_arr,
+        'pages'     => $pages_arr,
         'context'   => 'normal',
         'priority'  => 'default',
         'fields'    => array(
@@ -222,7 +222,7 @@ if ( !ishyoboy_seo_plugin_active() ){
 
 add_ishyo_meta_box('ishyoboy_slides_urls', array(
     'title'     => __('Slide Settings', 'ishyoboy'),
-    'pages'		=> array('ishyoboy_slides'),
+    'pages'     => array('ishyoboy_slides'),
     'context'   => 'side',
     'priority'  => 'default',
     'fields'    => array(
@@ -255,7 +255,7 @@ add_ishyo_meta_box('ishyoboy_slides_urls', array(
 ));
 
 
-$pages_arr = array('page', 'post', 'portfolio-post', 'review-post', 'video-post', 'podcast-post');
+$pages_arr = array('page', 'post', 'portfolio-post', 'review-post', 'video-post', 'podcast-post', 'tutorial-post');
 if ( ishyoboy_woocommerce_plugin_active() ){
     $pages_arr[] = 'product';
 }
@@ -263,7 +263,7 @@ if ( ishyoboy_woocommerce_plugin_active() ){
 // Page, Blog & Portfolio Sidebars
 add_ishyo_meta_box('ishyoboy_blog_sidebars', array(
     'title'     => 'Sidebar',
-    'pages'		=> $pages_arr,
+    'pages'     => $pages_arr,
     'context'   => 'side',
     'priority'  => 'default',
     'fields'    => array(
@@ -274,10 +274,10 @@ add_ishyo_meta_box('ishyoboy_blog_sidebars', array(
             'desc' => '', //__('', 'ishyoboy'),
             'type' => 'select',
             'options' => array(
-                ''		=> 'Default setting',
-                'none'		=> 'No Sidebar',
-                'left'		=> 'Left',
-                'right'		=> 'Right'
+                ''      => 'Default setting',
+                'none'      => 'No Sidebar',
+                'left'      => 'Left',
+                'right'     => 'Right'
             ),
         ),
         array(
@@ -290,7 +290,7 @@ add_ishyo_meta_box('ishyoboy_blog_sidebars', array(
     )
 ));
 
-$pages_arr = array('page', 'post', 'portfolio-post', 'review-post', 'video-post', 'podcast-post');
+$pages_arr = array('page', 'post', 'portfolio-post', 'review-post', 'video-post', 'podcast-post', 'tutorial-post');
 if ( ishyoboy_woocommerce_plugin_active() ){
     $pages_arr[] = 'product';
 }
@@ -298,7 +298,7 @@ if ( ishyoboy_woocommerce_plugin_active() ){
 // Expandable header
 add_ishyo_meta_box('ishyoboy_expandable_header', array(
     'title'     => 'Expandable header',
-    'pages'		=> $pages_arr,
+    'pages'     => $pages_arr,
     'context'   => 'side',
     'priority'  => 'default',
     'fields'    => array(
@@ -309,9 +309,9 @@ add_ishyo_meta_box('ishyoboy_expandable_header', array(
             'desc' => '', //__('', 'ishyoboy'),
             'type' => 'select',
             'options' => array(
-                ''		=> 'Default setting',
-                '0'		=> 'Disable',
-                '1'		=> 'Enable'
+                ''      => 'Default setting',
+                '0'     => 'Disable',
+                '1'     => 'Enable'
             )
         ),
         array(
@@ -327,14 +327,14 @@ add_ishyo_meta_box('ishyoboy_expandable_header', array(
             'desc' => '', //__('', 'ishyoboy'),
             'type' => 'select',
             'options' => array(
-                '0'		=> 'Closed',
-                '1'		=> 'Opened'
+                '0'     => 'Closed',
+                '1'     => 'Opened'
             )
         )
     )
 ));
 
-$pages_arr = array('page', 'post', 'portfolio-post', 'review-post', 'video-post', 'podcast-post');
+$pages_arr = array('page', 'post', 'portfolio-post', 'review-post', 'video-post', 'podcast-post', 'tutorial-post');
 if ( ishyoboy_woocommerce_plugin_active() ){
     $pages_arr[] = 'product';
 }
@@ -342,7 +342,7 @@ if ( ishyoboy_woocommerce_plugin_active() ){
 // Footer widget area
 add_ishyo_meta_box('ishyoboy_footer_widgets', array(
     'title'     => 'Footer Widget Area',
-    'pages'		=> $pages_arr,
+    'pages'     => $pages_arr,
     'context'   => 'side',
     'priority'  => 'default',
     'fields'    => array(
@@ -353,9 +353,9 @@ add_ishyo_meta_box('ishyoboy_footer_widgets', array(
             'desc' => '', //__('', 'ishyoboy'),
             'type' => 'select',
             'options' => array(
-                ''		=> 'Default setting',
-                '0'		=> 'Disable',
-                '1'		=> 'Enable'
+                ''      => 'Default setting',
+                '0'     => 'Disable',
+                '1'     => 'Enable'
             )
         ),
         array(
@@ -369,7 +369,7 @@ add_ishyo_meta_box('ishyoboy_footer_widgets', array(
 
 add_ishyo_meta_box('ishyoboy_portfolio_images_box', array(
     'title'     => __('Portfolio Gallery', 'ishyoboy'),
-    'pages'		=> array('portfolio-post'),
+    'pages'     => array('portfolio-post', 'post', 'review-post', 'tutorial-post', 'podcast-post', 'video-post'),
     'context'   => 'side',
     'priority'  => 'default',
     'fields'    => array(

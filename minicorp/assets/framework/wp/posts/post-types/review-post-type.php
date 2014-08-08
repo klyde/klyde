@@ -22,7 +22,7 @@
         'all_items'             => __( 'All Reviews', 'ishyoboy' )
       );
       $taxonomies              = array();
-      $supports                = array('title', 'editor', 'thumbnail', 'author', 'excerpt', 'revisions', 'trackbacks');
+      $supports                = array('title', 'editor', 'thumbnail', 'author', 'excerpt', 'revisions', 'trackbacks', 'comments', 'page-attributes');
       $post_type_args          = array(
         'labels'                => $labels,
         'description'           => __( 'Plugin and Theme reviews wtih in-depth analysis and thoughtful prose', 'ishyoboy'),
@@ -40,12 +40,12 @@
         'can_export'            => true,
         'delete_with_user'      => false,
         'has_archive'           => 'reviews',
-        'hierarchical'          => false,
+        'hierarchical'          => true,
         'rewrite'               => array(
           'slug'                  => 'review',
           'with_front'            => true,
           'feed'                  => true,
-          'pages'                 => false
+          'pages'                 => true
         ),
         'supports'              => $supports,
         'capabilities'          => array(
