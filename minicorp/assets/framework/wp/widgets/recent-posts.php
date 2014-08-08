@@ -187,6 +187,9 @@ class Ishyoboy_Recent_Posts_Widget extends WP_Widget {
 
                 $post_types[] = get_post_type_object('post');
                 $post_types[] = get_post_type_object('portfolio-post');
+                $post_types[] = get_post_type_object('video-post');
+                $post_types[] = get_post_type_object('podcast-post');
+                $post_types[] = get_post_type_object('review-post');
 
             ?>
             <select name="<?php echo $this->get_field_name( 'post_type' ); ?>" id="<?php echo $this->get_field_id( 'post_type' ); ?>" class="post-type-selector">

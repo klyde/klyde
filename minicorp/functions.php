@@ -140,7 +140,7 @@ if ( !function_exists( 'ishyoboy_theme_setup' ) ) {
 
         // Adding support for post-formats WP 3.1+
         //add_theme_support( 'post-formats', array( 'image', 'audio', 'video', 'aside', 'gallery', 'link', 'quote', 'status' ) );
-        add_theme_support( 'post-formats', array( 'audio', 'video', 'link', 'quote') );
+        add_theme_support( 'post-formats', array( 'audio', 'video', 'link', 'quote', 'image') );
         add_theme_support( 'automatic-feed-links' );
 
         /*
@@ -513,7 +513,10 @@ if ( function_exists( 'add_theme_support' ) )
         'portfolio-post',
         'ishyoboy_slides',
         'post',
-	    'page'
+	    'page',
+        'review-post',
+        'podcast-post',
+        'video-post'
     ));
 
 
@@ -535,6 +538,18 @@ function ishyoboy_do_meta_boxes() {
     //Portfolio
     remove_meta_box('postimagediv', 'portfolio-post', 'side');
     add_meta_box('postimagediv', __( 'Portfolio thumbnail', 'ishyoboy' ), 'post_thumbnail_meta_box', 'portfolio-post', 'normal', 'high');
+
+    //Video
+    remove_meta_box('postimagediv', 'video-post', 'side');
+    add_meta_box('postimagediv', __( 'Video thumbnail', 'ishyoboy' ), 'post_thumbnail_meta_box', 'video-post', 'normal', 'high');
+
+    //Podcast
+    remove_meta_box('postimagediv', 'podcast-post', 'side');
+    add_meta_box('postimagediv', __( 'Podcast thumbnail', 'ishyoboy' ), 'post_thumbnail_meta_box', 'podcast-post', 'normal', 'high');
+
+    //Review
+    remove_meta_box('postimagediv', 'review-post', 'side');
+    add_meta_box('postimagediv', __( 'Review thumbnail', 'ishyoboy' ), 'post_thumbnail_meta_box', 'review-post', 'normal', 'high');
 
     // Slider
     remove_meta_box( 'postimagediv', 'ishyoboy_slides', 'side' );
@@ -726,6 +741,8 @@ if ( ! function_exists( 'ishyoboy_default_content' ) ) {
             switch( $post->post_type ) {
                 case 'page':
                 case 'portfolio-post':
+                case 'video-post':
+                case 'podcast-post':
                     $post->comment_status = 'closed';
                     break;
             }
@@ -1028,6 +1045,258 @@ if ( ! function_exists( 'ishyoboy_get_portfolio_post_fancybox_images' ) ) {
 
                 $details = wp_get_attachment_image_src( $attachment->ID, $imagesize );
                 $return .= "<a href='" . esc_attr($details[0]) . "' rel='portfolio-box-" . $postid . "' class='openfancybox-image'></a>\n";
+            }
+        }
+
+        return $return;
+
+    }
+}
+
+
+
+/*
+ *  podcast overview attachment images print
+ */
+
+if ( !function_exists( 'ishyoboy_podcast_post_fancybox_images' ) ) {
+    function ishyoboy_podcast_post_fancybox_images($postid, $imagesize) {
+        $thumbid = 0;
+
+        // get the featured image for the post
+        if( has_post_thumbnail($postid) ) {
+            $thumbid = get_post_thumbnail_id($postid);
+        }
+
+
+        // get all of the attachments for the post
+        $args = array(
+            'orderby' => 'menu_order',
+            'order' => 'ASC',
+            'post_type' => 'attachment',
+            'post_parent' => $postid,
+            'post_mime_type' => 'image',
+            'post_status' => null,
+            'numberposts' => -1
+        );
+
+        $attachments = get_posts($args);
+
+        if( !empty($attachments) ) {
+            foreach( $attachments as $attachment ) {
+
+                // SKIP OUT THE FAETURED IMAGE
+                if( $attachment->ID == $thumbid ) continue;
+
+                $details = wp_get_attachment_image_src( $attachment->ID, $imagesize );
+                echo "<a href='" . esc_attr($details[0]) . "' rel='podcast-box-" . $postid . "' class='openfancybox-image'></a>\n";
+            }
+        }
+
+    }
+}
+
+if ( ! function_exists( 'ishyoboy_get_podcast_post_fancybox_images' ) ) {
+    function ishyoboy_get_podcast_post_fancybox_images($postid, $imagesize) {
+        $thumbid = 0;
+
+        $return = '';
+
+        // get the featured image for the post
+        if( has_post_thumbnail($postid) ) {
+            $thumbid = get_post_thumbnail_id($postid);
+        }
+
+
+        // get all of the attachments for the post
+        $args = array(
+            'orderby' => 'menu_order',
+            'order' => 'ASC',
+            'post_type' => 'attachment',
+            'post_parent' => $postid,
+            'post_mime_type' => 'image',
+            'post_status' => null,
+            'numberposts' => -1
+        );
+
+        $attachments = get_posts($args);
+
+        if( !empty($attachments) ) {
+            foreach( $attachments as $attachment ) {
+
+                // SKIP OUT THE FAETURED IMAGE
+                if( $attachment->ID == $thumbid ) continue;
+
+                $details = wp_get_attachment_image_src( $attachment->ID, $imagesize );
+                $return .= "<a href='" . esc_attr($details[0]) . "' rel='podcast-box-" . $postid . "' class='openfancybox-image'></a>\n";
+            }
+        }
+
+        return $return;
+
+    }
+}
+
+
+
+/*
+ *  Video overview attachment images print
+ */
+
+if ( !function_exists( 'ishyoboy_video_post_fancybox_images' ) ) {
+    function ishyoboy_video_post_fancybox_images($postid, $imagesize) {
+        $thumbid = 0;
+
+        // get the featured image for the post
+        if( has_post_thumbnail($postid) ) {
+            $thumbid = get_post_thumbnail_id($postid);
+        }
+
+
+        // get all of the attachments for the post
+        $args = array(
+            'orderby' => 'menu_order',
+            'order' => 'ASC',
+            'post_type' => 'attachment',
+            'post_parent' => $postid,
+            'post_mime_type' => 'image',
+            'post_status' => null,
+            'numberposts' => -1
+        );
+
+        $attachments = get_posts($args);
+
+        if( !empty($attachments) ) {
+            foreach( $attachments as $attachment ) {
+
+                // SKIP OUT THE FAETURED IMAGE
+                if( $attachment->ID == $thumbid ) continue;
+
+                $details = wp_get_attachment_image_src( $attachment->ID, $imagesize );
+                echo "<a href='" . esc_attr($details[0]) . "' rel='video-box-" . $postid . "' class='openfancybox-image'></a>\n";
+            }
+        }
+
+    }
+}
+
+if ( ! function_exists( 'ishyoboy_get_video_post_fancybox_images' ) ) {
+    function ishyoboy_get_video_post_fancybox_images($postid, $imagesize) {
+        $thumbid = 0;
+
+        $return = '';
+
+        // get the featured image for the post
+        if( has_post_thumbnail($postid) ) {
+            $thumbid = get_post_thumbnail_id($postid);
+        }
+
+
+        // get all of the attachments for the post
+        $args = array(
+            'orderby' => 'menu_order',
+            'order' => 'ASC',
+            'post_type' => 'attachment',
+            'post_parent' => $postid,
+            'post_mime_type' => 'image',
+            'post_status' => null,
+            'numberposts' => -1
+        );
+
+        $attachments = get_posts($args);
+
+        if( !empty($attachments) ) {
+            foreach( $attachments as $attachment ) {
+
+                // SKIP OUT THE FAETURED IMAGE
+                if( $attachment->ID == $thumbid ) continue;
+
+                $details = wp_get_attachment_image_src( $attachment->ID, $imagesize );
+                $return .= "<a href='" . esc_attr($details[0]) . "' rel='video-box-" . $postid . "' class='openfancybox-image'></a>\n";
+            }
+        }
+
+        return $return;
+
+    }
+}
+
+
+
+/*
+ *  Review overview attachment images print
+ */
+
+if ( !function_exists( 'ishyoboy_review_post_fancybox_images' ) ) {
+    function ishyoboy_review_post_fancybox_images($postid, $imagesize) {
+        $thumbid = 0;
+
+        // get the featured image for the post
+        if( has_post_thumbnail($postid) ) {
+            $thumbid = get_post_thumbnail_id($postid);
+        }
+
+
+        // get all of the attachments for the post
+        $args = array(
+            'orderby' => 'menu_order',
+            'order' => 'ASC',
+            'post_type' => 'attachment',
+            'post_parent' => $postid,
+            'post_mime_type' => 'image',
+            'post_status' => null,
+            'numberposts' => -1
+        );
+
+        $attachments = get_posts($args);
+
+        if( !empty($attachments) ) {
+            foreach( $attachments as $attachment ) {
+
+                // SKIP OUT THE FAETURED IMAGE
+                if( $attachment->ID == $thumbid ) continue;
+
+                $details = wp_get_attachment_image_src( $attachment->ID, $imagesize );
+                echo "<a href='" . esc_attr($details[0]) . "' rel='review-box-" . $postid . "' class='openfancybox-image'></a>\n";
+            }
+        }
+
+    }
+}
+
+if ( ! function_exists( 'ishyoboy_get_review_post_fancybox_images' ) ) {
+    function ishyoboy_get_review_post_fancybox_images($postid, $imagesize) {
+        $thumbid = 0;
+
+        $return = '';
+
+        // get the featured image for the post
+        if( has_post_thumbnail($postid) ) {
+            $thumbid = get_post_thumbnail_id($postid);
+        }
+
+
+        // get all of the attachments for the post
+        $args = array(
+            'orderby' => 'menu_order',
+            'order' => 'ASC',
+            'post_type' => 'attachment',
+            'post_parent' => $postid,
+            'post_mime_type' => 'image',
+            'post_status' => null,
+            'numberposts' => -1
+        );
+
+        $attachments = get_posts($args);
+
+        if( !empty($attachments) ) {
+            foreach( $attachments as $attachment ) {
+
+                // SKIP OUT THE FAETURED IMAGE
+                if( $attachment->ID == $thumbid ) continue;
+
+                $details = wp_get_attachment_image_src( $attachment->ID, $imagesize );
+                $return .= "<a href='" . esc_attr($details[0]) . "' rel='review-box-" . $postid . "' class='openfancybox-image'></a>\n";
             }
         }
 
@@ -1443,12 +1712,34 @@ if ( ! function_exists( 'remove_page_from_query_string' ) ) {
 add_filter('request', 'remove_page_from_query_string');
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function change_posttype() {
     global $wp_query;
     if( is_archive() && is_paged() && !is_admin() && ( !function_exists('is_woocommerce') || !is_woocommerce() ) ) {
         //var_dump($wp_query);
         // WOOCOMMERCE UNCOMMENTED
-        set_query_var( 'post_type', array( 'post', 'portfolio-post' ) );
+        set_query_var( 'post_type', array( 'post', 'portfolio-post', 'video-post', 'review-post', 'podcast-post' ) );
     }
     return;
 }
@@ -1468,6 +1759,36 @@ function ishyoboy_option_posts_per_page( $value ) {
 
         if ( isset($ish_options['portfolio_posts_per_page']) && !empty($ish_options['portfolio_posts_per_page']) ){
             return $ish_options['portfolio_posts_per_page'];
+        }
+        else{
+            return $option_posts_per_page;
+        }
+
+    }
+    elseif ( is_tax( 'podcast-category') ) {
+
+        if ( isset($ish_options['podcast_posts_per_page']) && !empty($ish_options['podcast_posts_per_page']) ){
+            return $ish_options['podcast_posts_per_page'];
+        }
+        else{
+            return $option_posts_per_page;
+        }
+
+    }
+    elseif ( is_tax( 'video-category') ) {
+
+        if ( isset($ish_options['video_posts_per_page']) && !empty($ish_options['video_posts_per_page']) ){
+            return $ish_options['video_posts_per_page'];
+        }
+        else{
+            return $option_posts_per_page;
+        }
+
+    }
+    if ( is_tax( 'review-category') ) {
+
+        if ( isset($ish_options['review_posts_per_page']) && !empty($ish_options['review_posts_per_page']) ){
+            return $ish_options['review_posts_per_page'];
         }
         else{
             return $option_posts_per_page;
@@ -1530,6 +1851,54 @@ function filter_post_type_link($link, $post)
 
     if ($cats = get_the_terms($post->ID, 'portfolio-category'))
         $link = str_replace('%portfolio_cat%', array_pop($cats)->slug, $link);
+    return $link;
+}
+add_filter('post_type_link', 'filter_post_type_link', 10, 2);
+/**/
+
+/* *********************************************************************************************************************
+ * Make WordPress recognize %video_cat%
+ */
+/*
+function filter_post_type_link($link, $post)
+{
+    if ($post->post_type != 'video-post')
+        return $link;
+
+    if ($cats = get_the_terms($post->ID, 'video-category'))
+        $link = str_replace('%video_cat%', array_pop($cats)->slug, $link);
+    return $link;
+}
+add_filter('post_type_link', 'filter_post_type_link', 10, 2);
+/**/
+
+/* *********************************************************************************************************************
+ * Make WordPress recognize %review_cat%
+ */
+/*
+function filter_post_type_link($link, $post)
+{
+    if ($post->post_type != 'review-post')
+        return $link;
+
+    if ($cats = get_the_terms($post->ID, 'review-category'))
+        $link = str_replace('%review_cat%', array_pop($cats)->slug, $link);
+    return $link;
+}
+add_filter('post_type_link', 'filter_post_type_link', 10, 2);
+/**/
+
+/* *********************************************************************************************************************
+ * Make WordPress recognize %podcast_cat%
+ */
+/*
+function filter_post_type_link($link, $post)
+{
+    if ($post->post_type != 'podcast-post')
+        return $link;
+
+    if ($cats = get_the_terms($post->ID, 'podcast-category'))
+        $link = str_replace('%podcast_cat%', array_pop($cats)->slug, $link);
     return $link;
 }
 add_filter('post_type_link', 'filter_post_type_link', 10, 2);
@@ -1930,6 +2299,27 @@ add_filter( 'admin_body_class', 'ishyoboy_add_wp38_body_class');
 
 
 
+
+
+
+// Show posts of 'post', 'review', 'podcast' and 'video' post types on archive pages
+add_action( 'pre_get_posts', 'add_my_post_types_to_query' );
+
+function add_my_post_types_to_query( $query ) {
+  if ( is_home() && $query->is_main_query() )
+    $query->set( 'post_type', array( 'post', 'review-post', 'video-post', 'podcast-post', 'portfolio-post' ) );
+  return $query;
+}
+
+
+function get_the_excerpt_here($post_id)
+{
+  global $wpdb;
+  $query = "SELECT post_excerpt FROM $wpdb->posts WHERE ID = $post_id LIMIT 1";
+  $result = $wpdb->get_results($query, ARRAY_A);
+  return $result[0]['post_excerpt'];
+}
+
 /* *********************************************************************************************************************
  * Load Language
  */
@@ -1946,6 +2336,9 @@ require_once( locate_template( 'assets/framework/wp/includes/sidebar_generator.p
 require_once( locate_template( 'admin/index.php' ) );
 require_once( locate_template( 'assets/framework/wp/options/init.php' ) );
 require_once( locate_template( 'assets/framework/wp/posts/post-types/portfolio-post-type.php' ) );
+require_once( locate_template( 'assets/framework/wp/posts/post-types/review-post-type.php' ) );
+require_once( locate_template( 'assets/framework/wp/posts/post-types/video-post-type.php' ) );
+require_once( locate_template( 'assets/framework/wp/posts/post-types/podcast-post-type.php' ) );
 require_once( locate_template( 'assets/framework/wp/posts/post-types/slider-post-type.php' ) );
 require_once( locate_template( 'assets/framework/wp/includes/class-tgm-plugin-activation.php' ) );
 

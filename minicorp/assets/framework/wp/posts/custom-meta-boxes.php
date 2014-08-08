@@ -4,7 +4,7 @@
  * Add custom meta boxes
  */
 
-$pages_arr = array('page', 'post', 'portfolio-post');
+$pages_arr = array('page', 'post', 'portfolio-post', 'review-post', 'video-post', 'podcast-post');
 if ( ishyoboy_woocommerce_plugin_active() ){
     $pages_arr[] = 'product';
 }
@@ -87,7 +87,7 @@ add_ishyo_meta_box('ishyoboy_meta_post_quote', array(
 
 add_ishyo_meta_box('ishyoboy_meta_post_audio', array(
     'title'     => __('Audio settings', 'ishyoboy'),
-    'pages'		=> array('post', 'portfolio-post'),
+    'pages'		=> array('post', 'portfolio-post', 'review-post', 'video-post', 'podcast-post'),
     'context'   => 'normal',
     'priority'  => 'high',
     'fields'    => array(
@@ -103,7 +103,7 @@ add_ishyo_meta_box('ishyoboy_meta_post_audio', array(
 
 add_ishyo_meta_box('ishyoboy_meta_post_video', array(
     'title'     => __('Video settings', 'ishyoboy'),
-    'pages'		=> array('post', 'portfolio-post'),
+    'pages'		=> array('post', 'portfolio-post', 'review-post', 'video-post', 'podcast-post'),
     'context'   => 'normal',
     'priority'  => 'high',
     'fields'    => array(
@@ -145,7 +145,7 @@ add_ishyo_meta_box('ishyoboy_meta_post_video', array(
     )
 ));
 
-$pages_arr = array('page', 'post', 'portfolio-post');
+$pages_arr = array('page', 'post', 'portfolio-post', 'review-post', 'video-post', 'podcast-post');
 if ( ishyoboy_woocommerce_plugin_active() ){
     $pages_arr[] = 'product';
 }
@@ -183,7 +183,7 @@ add_ishyo_meta_box('ishyoboy_page_settings', array(
     )
 ));
 
-$pages_arr = array('page', 'post', 'portfolio-post');
+$pages_arr = array('page', 'post', 'portfolio-post', 'review-post', 'video-post', 'podcast-post');
 if ( ishyoboy_woocommerce_plugin_active() ){
     $pages_arr[] = 'product';
 }
@@ -255,7 +255,7 @@ add_ishyo_meta_box('ishyoboy_slides_urls', array(
 ));
 
 
-$pages_arr = array('page', 'post', 'portfolio-post');
+$pages_arr = array('page', 'post', 'portfolio-post', 'review-post', 'video-post', 'podcast-post');
 if ( ishyoboy_woocommerce_plugin_active() ){
     $pages_arr[] = 'product';
 }
@@ -290,7 +290,7 @@ add_ishyo_meta_box('ishyoboy_blog_sidebars', array(
     )
 ));
 
-$pages_arr = array('page', 'post', 'portfolio-post');
+$pages_arr = array('page', 'post', 'portfolio-post', 'review-post', 'video-post', 'podcast-post');
 if ( ishyoboy_woocommerce_plugin_active() ){
     $pages_arr[] = 'product';
 }
@@ -334,7 +334,7 @@ add_ishyo_meta_box('ishyoboy_expandable_header', array(
     )
 ));
 
-$pages_arr = array('page', 'post', 'portfolio-post');
+$pages_arr = array('page', 'post', 'portfolio-post', 'review-post', 'video-post', 'podcast-post');
 if ( ishyoboy_woocommerce_plugin_active() ){
     $pages_arr[] = 'product';
 }

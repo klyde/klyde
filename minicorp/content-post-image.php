@@ -18,18 +18,20 @@
                         $title = get_the_title();
 
                         $title = (  !empty( $title ) ) ? $title : 'No title';
+                        $image_link = get_post_format_link( image );
 
                 ?>
                     <div class="search-details" style="margin-top: 48px !important;">
-                        <h3 class="color1" style="display:block;line-height:30%;letter-spacing:.5px;font-weight:bold;"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
-                        <span class="icon-calendar" style="font-weight:bold;">Posted On: <?php echo get_the_date(); ?></span>
-                        <span class="icon-pencil-1" style="font-weight:bold;">Written By: <?php echo get_the_author_link(); ?></span>
+                        <h3 class="color1" style="display:block;line-height:30%;letter-spacing:.5px;font-weight:bold;"><?php echo do_shortcode('[icon icon="icon-picture-1" size="18" align="none" color="black" url="' . $image_link . '" new_window="no"]'); ?><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
+                        <span class="icon-calendar" style="font-weight:bold;display:inline-block;">Posted On: <?php echo get_the_date(); ?></span>
+                        <span class="icon-pencil-1" style="font-weight:bold;display:inline-block;">Written By: <?php echo get_the_author_link(); ?></span>
                         <?php if ( has_category() ) : ?>
-                            <span class="icon-folder" style="font-weight:bold;">Filed Under: <?php the_category(', '); ?></span>
+                            <span class="icon-folder" style="font-weight:bold;display:inline-block;">Filed Under: <?php the_category(', '); ?></span>
                         <?php endif; ?>
                         <?php if ( has_tag() ) : ?>
-                            <span class="icon-tags" style="font-weight:bold;"><?php the_tags('And Tagged With: ',' , ',''); ?></span>
+                            <span class="icon-tags" style="font-weight:bold;display:inline-block;"><?php the_tags('Tagged With: ',' , ',''); ?></span>
                         <?php endif; ?>
+                        <span class="icon-chat-1" style="font-weight:bold;display:inline-block;"><?php _e( 'And Has: ' , 'ishyoboy' ); ?> <a href="<?php the_permalink(); ?>#comments"><?php comments_number( __('0 Comments', 'ishyoboy'), __('1 Comment', 'ishyoboy'), __('% Comments', 'ishyoboy') ); ?></a> So Far</span>
                         <?php echo ishyoboy_custom_excerpt(get_the_content(), 40, get_search_query()); ?>
                     </div>
         </div>

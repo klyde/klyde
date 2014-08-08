@@ -846,8 +846,7 @@ border-top-color: <?php echo $c2; ?>;
 .portfolio-style-2 .portfolio-item ul, .portfolio-style-3 .portfolio-item ul, .portfolio-style-4 .portfolio-item ul,
 .portfolio-style-2 .portfolio-item ul a, .portfolio-style-3 .portfolio-item ul a, .portfolio-style-4 .portfolio-item ul a
 {
-color: <?php echo $c_text; ?>;
-color: rgba(<?php echo $c_text_rgb; ?>, 0.5);
+
 }
 
 /*

@@ -7,51 +7,81 @@
 		function ishyoboy_portfolio_post_type()
 		{
 			$labels = array(
-				'name'                  => __( 'Portfolio', 'ishyoboy '),
+				'name'                  => __( 'Portfolios', 'ishyoboy '),
 				'singular_name'	        => __( 'Portfolio', 'ishyoboy' ),
-				'add_new'		        => _x( 'Add Item', 'portfolio-post', 'ishyoboy' ),
-				'add_new_item'	        => __( 'Edit Portfolio Item', 'ishyoboy' ),
+				'add_new'		        => _x( 'Add Portfolio', 'portfolio-post', 'ishyoboy' ),
+				'add_new_item'	        => __( 'Add New Portfolio', 'ishyoboy' ),
 				'edit_item'		        => __( 'Edit Portfolio', 'ishyoboy' ),
-				'new_item'		        => __( 'New Portfolio Item', 'ishyoboy' ),
+				'new_item'		        => __( 'New Portfolio', 'ishyoboy' ),
 				'view_item'		        => __( 'View Portfolio', 'ishyoboy' ),
-				'search_items'	        => __( 'Search Portfolio', 'ishyoboy' ),
-				'not_found'		        => __( 'No Portfolio Items Found', 'ishyoboy' ),
-				'not_found_in_trash'    => __( 'No Portfolio Items Found In Trash', 'ishyoboy' ),
-				'parent_item_colon'     => __( 'Portfolio', 'ishyoboy' ),
-				'menu_name'		        => __( 'Portfolio', 'ishyoboy' )
-			);
-			$taxonomies = array();
-			//$supports = array('title', 'editor', 'thumbnail', 'post-formats');
-			$supports = array('title', 'editor', 'thumbnail', 'comments');
-			$post_type_args = array(
-				'labels'                => $labels,
-				'singular_label'		=> __( 'Portfolio' , 'ishyoboy' ),
-				'public'				=> true,
-				'publicly_queryable'	=> true,
-				'exclude_from_search'   => false,
-				'show_ui'			    => true,
-				'show_in_menu'		    => true,
-				'query_var'			    => true,
-				'capability_type'	    => 'post',
-				'has_archive'		    => false,
-				'hierarchical'		    => true,
-				'rewrite'			    => array(
-					'slug'              => 'portfolio',
-					'with_front'		=> true,
-					'feed'              => true,
-					'pages'             => false
-				),
-				'supports'              => $supports,
-				'menu_position'         => null,
-				'menu_icon'			    => null, //get_template_directory_uri() . '/inc/slider/images/icon.png',
-				'taxonomies'			=> $taxonomies
-			);
-	
-			register_post_type( 'portfolio-post', $post_type_args );
-	
-		}
-	}
+				'search_items'	        => __( 'Search Portfolios', 'ishyoboy' ),
+				'not_found'		        => __( 'No Portfolios Found', 'ishyoboy' ),
+				'not_found_in_trash'    => __( 'No Portfolios Found In Trash', 'ishyoboy' ),
+				'parent_item_colon'     => __( 'Parent Portfolio:', 'ishyoboy' ),
+				'menu_name'		        => __( 'Portfolios', 'ishyoboy' ),
+				'all_items'             => __( 'All Portfolios', 'ishyoboy' )
+		      );
+		      $taxonomies              = array();
+		      $supports                = array('title', 'editor', 'thumbnail', 'author', 'excerpt', 'revisions', 'trackbacks');
+		      $post_type_args          = array(
+		        'labels'                => $labels,
+		        'description'           => __( 'Displays past projects in an easily consumable fashion forward way', 'ishyoboy'),
+		        'singular_label'        => __( 'Portfolio' , 'ishyoboy' ),
+		        'public'                => true,
+		        'publicly_queryable'    => true,
+		        'exclude_from_search'   => false,
+		        'show_ui'               => true,
+		        'show_in_menu'          => true,
+		        'query_var'             => true,
+		        'capability_type'       => 'portfolio',
+		        'map_meta_cap'          => true,
+		        'show_in_nav_menus'     => true,
+		        'show_in_admin_bar'     => true,
+		        'can_export'            => true,
+		        'delete_with_user'      => false,
+		        'has_archive'           => 'portfolios',
+		        'hierarchical'          => false,
+		        'rewrite'               => array(
+		          'slug'                  => 'portfolio',
+		          'with_front'            => true,
+		          'feed'                  => true,
+		          'pages'                 => false
+		        ),
+		        'supports'              => $supports,
+		        'capabilities'          => array(
 
+		            // meta caps (don't assign these to roles)
+		            'edit_post'           => 'edit_portfolio',
+		            'read_post'           => 'read_portfolio',
+		            'delete_post'         => 'delete_portfolio',
+
+		            // primitive/meta caps
+		            'create_posts'        => 'create_portfolios',
+
+		            // primitive caps used outside of map_meta_cap()
+		            'edit_posts'          => 'edit_portfolios',
+		            'edit_others_posts'   => 'manage_portfolios',
+		            'publish_posts'       => 'manage_portfolios',
+		            'read_private_posts'  => 'read',
+
+		            // primitive caps used inside of map_meta_cap()
+		            'read'                   => 'read',
+		            'delete_posts'           => 'manage_portfolios',
+		            'delete_private_posts'   => 'manage_portfolios',
+		            'delete_published_posts' => 'manage_portfolios',
+		            'delete_others_posts'    => 'manage_portfolios',
+		            'edit_private_posts'     => 'edit_portfolios',
+		            'edit_published_posts'   => 'edit_portfolios'
+		        ),
+		        'menu_position'          => null,
+		        'menu_icon'              => 'dashicons-images-alt2',
+		        'taxonomies'             => $taxonomies
+		      );
+		  
+		      register_post_type( 'portfolio-post', $post_type_args );
+		  
+    }
+  }
 
 
 	/*******************************************************************************************************************

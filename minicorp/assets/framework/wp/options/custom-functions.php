@@ -262,7 +262,7 @@ if ( ! function_exists( 'ishyoboy_get_lead' ) ) {
 
 				$lead = IshYoMetaBox::get('ishyoboy_lead', true, $id);
 				if (empty($lead)){
-					$lead = '[headline tag="h1" color="color1"][the_title][/headline]';
+					$lead = '[headline tag="h1" color="color4" align="center"][the_title][/headline]';
 				};
 				$box_type = IshYoMetaBox::get('ishyoboy_lead_type', true, $id);
 				if ( ( '' != $lead ) ){
@@ -272,7 +272,7 @@ if ( ! function_exists( 'ishyoboy_get_lead' ) ) {
 					$has_rev_slider = has_shortcode($lead, 'rev_slider');
 					$has_rev_class = ($has_rev_slider) ? ' ish-has-rev' : '';
 
-					$return .= '<section class="part-lead' . $has_rev_class . ( ('unboxed' == $box_type) ? ' lead-unboxed' : ' lead-boxed' ) . '" id="part-lead">' . "\n";
+					$return .= '<section class="part-lead' . $has_rev_class . ( ('unboxed' == $box_type) ? ' lead-unboxed' : ' lead-boxed' ) . '" id="part-lead" style="background-color:#ac984d;border-top: 5px solid #554335;margin-top: 1px;padding-top: 25px;">' . "\n";
 
 					if ( 'unboxed' != $box_type  ){
 						$return .= '  <div class="row">' . "\n";
@@ -303,7 +303,7 @@ if ( ! function_exists( 'ishyoboy_get_lead' ) ) {
 			$current_term = get_queried_object();
 			//<!-- Lead part section -->
 			$lead = '<div class="category-lead">';
-			$lead .= '<h1 class="color1">';
+			$lead .= '<h1 class="color1" style="text-align:center;">';
 
 			if ( is_tax( 'product_tag' ) ){
 				$lead .= __( 'Tag: ', 'ishyoboy' );
@@ -325,7 +325,7 @@ if ( ! function_exists( 'ishyoboy_custom_lead' ) ) {
 		global $post, $page, $wp_embed;
 		$return = '';
 		$return .= '<!-- Lead part section -->' . "\n";
-		$return .= '<section class="part-lead lead-boxed" id="part-lead">' . "\n";
+		$return .= '<section class="part-lead lead-boxed" id="part-lead" style="background-color:#ac984d;border-top: 5px solid #554335;margin-top: 1px;padding-top: 25px;">' . "\n";
 		$return .= '  <div class="row">' . "\n";
 		$return .= '      <section class="grid12">' . "\n";
 		$return .= '          ' .  wpautop(do_shortcode($wp_embed->run_shortcode($content))) . "\n";
@@ -353,7 +353,7 @@ if ( ! function_exists( 'ishyoboy_get_home_lead' ) ) {
 				$has_rev_slider = has_shortcode($lead, 'rev_slider');
 				$has_rev_class = ($has_rev_slider) ? ' ish-has-rev' : '';
 
-				$return .= '<section class="part-lead' . $has_rev_class . ( ('unboxed' == $box_type) ? ' lead-unboxed' : ' lead-boxed' ) . '" id="part-lead">' . "\n";
+				$return .= '<section class="part-lead' . $has_rev_class . ( ('unboxed' == $box_type) ? ' lead-unboxed' : ' lead-boxed' ) . '" id="part-lead" style="background-color:#ac984d;border-top: 5px solid #554335;margin-top: 1px;padding-top: 25px;">' . "\n";
 
 				if ( 'unboxed' != $box_type  ){
 					$return .= '  <div class="row">' . "\n";
